@@ -23,3 +23,7 @@ class GoodsItem(scrapy.Item):
     price = scrapy.Field()
     old_price = scrapy.Field()
     is_promo = scrapy.Field()
+
+class SearchItem(GoodsItem):
+    link = scrapy.Field()
+    source = scrapy.Field()

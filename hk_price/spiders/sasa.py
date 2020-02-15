@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from hk_price.items import GoodsItem
+from .item_parser import parse_sasa
 
 
 class SasaSpider(scrapy.Spider):
@@ -18,15 +19,7 @@ class SasaSpider(scrapy.Spider):
 
     def parse_price(self, response):
         for item in response.xpath('//div[@class="box_list"]/ul/li/div'):
-            good = GoodsItem()
-            good['brand'] = item.xpath('./a[2]/h2/b/text()').extract()
-            good['name'] = item.xpath('@note').extract()
-            good['price'] = item.xpath('@price').extract()
-            good['old_price'] = item.xpath('@ckj').extract()
-            if not good['old_price']:
-                good['old_price'] = good['price']
-            good['is_promo'] = good['old_price'] != good['price']
-            yield good
+            yield parse_sasa(item)
         next_page = response.xpath('//a[@class="btn_next"]/@href')
         if next_page:
             next_page_url = self.root + next_page[0].extract()

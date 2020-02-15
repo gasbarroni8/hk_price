@@ -21,6 +21,8 @@ scrapy crawl sasa -o sasa.csv
 
 # 获取dfs价格，以json保存
 scrapy crawl dfs -o dfs.json
+# 搜索商品
+scrapy crawl search -a text="coach tabby" -o output.json
 ```
 
 #### 输出
